@@ -172,25 +172,25 @@ $GLOBALS['TL_DCA']['tl_regina'] = array
         (
             'label' => &$GLOBALS['TL_LANG']['tl_regina']['constraints'],
             'inputType' => 'select',
-            'options' => array('', 'both', 'width', 'height'),
+            'options' => array('both', 'width', 'height'),
             'reference' => &$GLOBALS['TL_LANG']['tl_regina']['options_labels'],
             'exclude' => true,
-            'eval' => array('maxlength' => 255, 'tl_class' => 'w50')
+            'eval' => array('maxlength' => 255, 'tl_class' => 'w50', 'includeBlankOption' => true)
         ),
         'slice' => array
         (
             'label' => &$GLOBALS['TL_LANG']['tl_regina']['slice'],
             'inputType' => 'select',
-            'options' => array('', 'height', 'width'),
+            'options' => array('height', 'width'),
             'reference' => &$GLOBALS['TL_LANG']['tl_regina']['options_labels'],
             'exclude' => true,
-            'eval' => array('maxlength' => 255, 'tl_class' => 'w50')
+            'eval' => array('maxlength' => 255, 'tl_class' => 'w50', 'includeBlankOption' => true)
         ),
         'croping' => array
         (
             'label' => &$GLOBALS['TL_LANG']['tl_regina']['croping'],
             'inputType' => 'select',
-            'options' => array('', 'center_center'),
+            'options' => array('center_center'),
             'reference' => &$GLOBALS['TL_LANG']['tl_regina']['options_labels'],
             'exclude' => true,
             'eval' => array('maxlength' => 255, 'tl_class' => 'w50', 'includeBlankOption' => true)

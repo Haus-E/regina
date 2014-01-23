@@ -36,7 +36,7 @@ $GLOBALS['TL_DCA']['tl_regina_settings'] = array
     // Subpalettes
     'subpalettes' => array
     (
-        'useRegina' => 'noOldIERegina,explainRegina,prefixRegina,rewriteRuleRegina,useCacheRegina,cacheDirRegina,hdRatioRegina,mobiRatioRegina,defaultSettingsRegina,widthRegina,heightRegina,minWidthRegina,minHeightRegina'
+        'useRegina' => '{regina_legend},noOldIERegina,explainRegina,prefixRegina,rewriteRuleRegina,useCacheRegina,cacheDirRegina,hdRatioRegina,mobiRatioRegina,defaultSettingsRegina,widthRegina,heightRegina,minWidthRegina,minHeightRegina'
     ),
 
     // Fields

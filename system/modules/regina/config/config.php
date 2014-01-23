@@ -4,8 +4,8 @@ if (TL_MODE == 'FE') {
     $GLOBALS['TL_CSS'][] = "/system/modules/regina/html/css/regina.css";
 }
 // Backend module definition
-array_insert($GLOBALS['BE_MOD']['regina'], 1, array
-(
+array_insert($GLOBALS['BE_MOD'], 2, array
+(   'regina' => array(
     'regina_config' => array
     (
         'tables' => array('tl_regina'),
@@ -15,6 +15,7 @@ array_insert($GLOBALS['BE_MOD']['regina'], 1, array
     (
         'tables' => array('tl_regina_settings'),
         'icon' => 'system/themes/default/images/settings.gif'
+    )
     )
 ));
 
