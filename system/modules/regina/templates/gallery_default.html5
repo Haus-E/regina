@@ -1,0 +1,31 @@
+<table>
+    <tbody>
+    <?php foreach ($this->body as $class => $row): ?>
+        <tr class="<?php echo $class; ?>">
+            <?php foreach ($row as $col): ?>
+                <?php if (!$col->addImage): ?>
+                    <td class="<?php echo $col->class; ?> empty" style="width:<?php echo $col->colWidth; ?>">&nbsp;</td>
+                <?php else: ?>
+                    <td class="<?php echo $col->class; ?>" style="width:<?php echo $col->colWidth; ?>">
+                        <figure
+                            class="image_container <?php echo $this->imageSizeType; ?>"<?php if ($col->margin): ?> style="<?php echo $col->margin; ?>"<?php endif; ?>>
+                            <?php if ($col->href): ?>
+                                <a href="<?php echo $col->href; ?>"<?php echo $col->attributes; ?>
+                                   title="<?php echo $col->alt; ?>">
+                                    <img class="lazyimg" data-type="<?php echo $this->imageSizeType; ?>" src="/<?php echo $GLOBALS['TL_CONFIG']['prefixRegina']; ?>/<?php echo $this->imageSizeType; ?>/<?php echo $col->src; ?>" alt="<?php echo $col->alt; ?>">
+                                </a>
+                            <?php else: ?>
+                                <img class="lazyimg" data-type="<?php echo $this->imageSizeType; ?>" src="/<?php echo $GLOBALS['TL_CONFIG']['prefixRegina']; ?>/<?php echo $this->imageSizeType; ?>/<?php echo $col->src; ?>" alt="<?php echo $col->alt; ?>">
+                            <?php endif; ?>
+                            <?php if ($col->caption): ?>
+                                <figcaption class="caption"
+                                            style="width:<?php echo $col->arrSize[0]; ?>px"><?php echo $col->caption; ?></figcaption>
+                            <?php endif; ?>
+                        </figure>
+                    </td>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>

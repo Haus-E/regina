@@ -1,0 +1,31 @@
+
+<div id="tl_maintenance_cache" class="maintenance_<?php echo $this->isActive ? 'active' : 'inactive'; ?>">
+
+<h2 class="sub_headline"><?php echo $this->cacheHeadline; ?></h2>
+<?php if ($this->cacheMessage): ?>
+
+<div class="tl_message">
+<?php echo $this->cacheMessage; ?>
+</div>
+<?php endif; ?>
+
+<form action="<?php echo $this->action; ?>" class="tl_form" method="post">
+<div class="tl_formbody_edit">
+<input type="hidden" name="FORM_SUBMIT" value="tl_purge_image">
+<input type="hidden" name="REQUEST_TOKEN" value="<?php echo REQUEST_TOKEN; ?>">
+<div class="tl_tbox">
+  <fieldset class="tl_checkbox_container">
+    <legend><?php echo $this->cacheLabel; ?></legend>
+      <input type="checkbox" name="tables[]" id="cache_image" class="tl_checkbox" value="image_folder" onfocus="Backend.getScrollOffset()"> <label for="cache_image"><strong><?php echo $this->cacheImage; ?></strong> (<?php echo $this->cacheImageEntries; ?>)</label><br>
+  </fieldset>
+<?php if ($this->cacheHelp): ?>
+  <p class="tl_help tl_tip"><?php echo $this->cacheHelp; ?></p>
+<?php endif; ?>
+</div>
+</div>
+<div class="tl_submit_container">
+  <input type="submit" name="clear" id="clear" class="tl_submit" value="<?php echo $this->cacheSubmit; ?>">
+</div>
+</form>
+
+</div>

@@ -1,0 +1,4 @@
+<div class="long clr">
+<h3><?php echo $this->title ?></h3>
+<?php echo $this->desc ?>
+</div>
