@@ -234,7 +234,7 @@ $GLOBALS['TL_DCA']['tl_regina'] = array
         (
             'label' => &$GLOBALS['TL_LANG']['tl_regina']['textBoxUse'],
             'inputType' => 'checkbox',
-            'eval' => array('submitOnChange' => true, 'tl_class' => 'w50 m12 clr')
+            'eval' => array('submitOnChange' => true, 'tl_class' => 'clr')
         ),
         'textBoxOffset' => array
         (
@@ -243,13 +243,13 @@ $GLOBALS['TL_DCA']['tl_regina'] = array
             'exclude' => true,
             'eval' => array('maxlength' => 255, 'tl_class' => 'w50')
         ),
-        'textBoxBGColor' => array
-        (
-            'label' => &$GLOBALS['TL_LANG']['tl_regina']['textBoxBGColor'],
-            'inputType' => 'text',
-            'exclude' => true,
-            'eval' => array('maxlength' => 255, 'tl_class' => 'w50')
-        ),
+//        'textBoxBGColor' => array
+//        (
+//            'label' => &$GLOBALS['TL_LANG']['tl_regina']['textBoxBGColor'],
+//            'inputType' => 'text',
+//            'exclude' => true,
+//            'eval' => array('maxlength' => 255, 'tl_class' => 'w50')
+//        ),
         'textBoxHeight' => array
         (
             'label' => &$GLOBALS['TL_LANG']['tl_regina']['textBoxHeight'],
