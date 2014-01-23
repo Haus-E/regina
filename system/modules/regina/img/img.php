@@ -60,6 +60,7 @@ class img extends Frontend {
         $this->cacheDir = TL_ROOT . '/' . $GLOBALS['TL_CONFIG']['cacheDirRegina'] . '/';
         if (!is_dir($this->cacheDir)) {
             mkdir($this->cacheDir);
+            copy(TL_ROOT . '/system/modules/regina/html/imgcache/index.html', $this->cacheDir . '/index.html');
         }
         $this->cacheUse = $GLOBALS['TL_CONFIG']['useCacheRegina'];
 
