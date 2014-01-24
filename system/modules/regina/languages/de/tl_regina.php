@@ -8,7 +8,7 @@ $GLOBALS['TL_LANG']['tl_regina']['alias'] = array('Alias', 'Alias des Bildtyps. 
 $GLOBALS['TL_LANG']['tl_regina']['width'] = array('Breite', 'Breite des Zielbildes.');
 $GLOBALS['TL_LANG']['tl_regina']['height'] = array('Höhe', 'Höhe des Zielbildes');
 $GLOBALS['TL_LANG']['tl_regina']['resize'] = array('Einpassen (Upscale)', 'Bilder werden vergrößert, das Bild in Breite <b>und</b> Höhe kleiner ist als die Zielwerte.');
-$GLOBALS['TL_LANG']['tl_regina']['scaleImg'] = array('Automatische Bildberechnung', 'Das Bild wird um den Faktor des Pixelverhältins aus den Einstellungen automatisch berechnet. Beispiel: Ausgangsbild 400*300px, Faktor 2, Zielbild ist 200*150px.');
+$GLOBALS['TL_LANG']['tl_regina']['scaleImg'] = array('Automatische Bildberechnung', 'Das Bild wird um den Faktor des Pixelverhältins aus den Einstellungen automatisch berechnet. Beispiel: Ausgangsbild 400*300px, Faktor 2, Zielbild ist 200*150px. die angegebene Breite und Höhe wird nicht überschritten.');
 $GLOBALS['TL_LANG']['tl_regina']['quality'] = array('Qualität in %', 'Qualität des Bildes in % (nur für JPEG Format)');
 $GLOBALS['TL_LANG']['tl_regina']['position'] = array('Mittig zentrieren', 'Das Bild wird soweit möglich horizontal und vertikal mittig im übergeordneten DOM Element positioniert. (JS Funktion)');
 $GLOBALS['TL_LANG']['tl_regina']['visibility'] = array('Sichtbarkeit', '100% opaque -> 0% unsichtbar.');
@@ -19,7 +19,7 @@ $GLOBALS['TL_LANG']['tl_regina']['constraints'] = array('Einpassen ohne abschnei
 $GLOBALS['TL_LANG']['tl_regina']['slice'] = array('Einpassen mit abschneiden des Bildes', 'Geben sie an welche Ausdehnung eines Bildes eingepasst werden soll. (Bild wird entsprechend beschnitten)');
 $GLOBALS['TL_LANG']['tl_regina']['croping'] = array('Bild beschneiden', 'Standard Croping Funktion.');
 
-$GLOBALS['TL_LANG']['tl_regina']['textUseActive'] = array('Text einrechnen', 'Diese Option aktivieren wenn Text in das Bild eingerechnet werden soll.');
+$GLOBALS['TL_LANG']['tl_regina']['textUseActive'] = array('Text hinzufügen', 'Diese Option aktivieren wenn Text dem Bild hinzugefügt werden soll.');
 $GLOBALS['TL_LANG']['tl_regina']['fontSize'] = array('Schriftgröße', 'Größe des Textes in Punkt');
 $GLOBALS['TL_LANG']['tl_regina']['fontColor'] = array('Schriftfarbe', 'Schriftfarbe in hexadezimaler Schreibweise');
 $GLOBALS['TL_LANG']['tl_regina']['fontNormal'] = array('Schriftart normaler Text', 'Schriftart für normalen Text auswählen.');

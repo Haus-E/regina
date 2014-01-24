@@ -8,7 +8,7 @@ $GLOBALS['TL_LANG']['tl_regina']['alias'] = array('Alias', 'Image type alias. Tr
 $GLOBALS['TL_LANG']['tl_regina']['width'] = array('Width', 'Width of destination image.');
 $GLOBALS['TL_LANG']['tl_regina']['height'] = array('Height', 'Height of destination image.');
 $GLOBALS['TL_LANG']['tl_regina']['resize'] = array('Zoom image (Upscale)', 'Scale up image, if both width and height are lower than destination values.');
-$GLOBALS['TL_LANG']['tl_regina']['scaleImg'] = array('Automatic Downscale', 'All images must be kept in high quality. Regina scales it down by the given pixel ratio in <a href="main.php?do=regina_settings">Settings</a>');
+$GLOBALS['TL_LANG']['tl_regina']['scaleImg'] = array('Automatic Downscale', 'All images must be kept in high quality. Regina scales it down by the given pixel ratio within the boundary of width and height.');
 $GLOBALS['TL_LANG']['tl_regina']['quality'] = array('Quality in percent', 'Quality of compressions for JPEG Files.');
 $GLOBALS['TL_LANG']['tl_regina']['position'] = array('Center position', 'Positions the image horizontally and vertically centered in the parent DOM element. (JS function)');
 $GLOBALS['TL_LANG']['tl_regina']['visibility'] = array('Visibility', '100% visible -> 0% invisible.');
@@ -19,7 +19,7 @@ $GLOBALS['TL_LANG']['tl_regina']['constraints'] = array('Fit image without cropp
 $GLOBALS['TL_LANG']['tl_regina']['slice'] = array('Fit image with cropping', 'The image will be cropped to the width or height of the destination image.');
 $GLOBALS['TL_LANG']['tl_regina']['croping'] = array('Image cropping', 'The image will be auto cropped by the given value to fit into the destination image.');
 
-$GLOBALS['TL_LANG']['tl_regina']['textUseActive'] = array('Calculate Text', 'Turn this option on to calculate Text into the image.');
+$GLOBALS['TL_LANG']['tl_regina']['textUseActive'] = array('Add Text', 'Turn this option on to add Text into the image.');
 $GLOBALS['TL_LANG']['tl_regina']['fontSize'] = array('Font size', 'Font size in point.');
 $GLOBALS['TL_LANG']['tl_regina']['fontColor'] = array('Font color', 'Font color in hexadecimal notation');
 $GLOBALS['TL_LANG']['tl_regina']['fontNormal'] = array('Font type - normal text', 'Choose a font for normal text.');
