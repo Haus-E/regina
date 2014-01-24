@@ -8,7 +8,8 @@ class img extends Frontend {
     private $height = 500;
     private $quality = 95;
     private $imgType = 'jpeg';
-    private $grayscale = '0';
+    private $visibility = '100';
+    private $grayscaleActive = '';
     private $transcolor = '000000';
     private $constraints = 'both';
     private $slice = '';
@@ -33,6 +34,7 @@ class img extends Frontend {
     private $textTransparency = 90;
     private $textFactor = 1;
 
+    private $useExtraImage = '';
     private $addImage = '';
 
     private $crop = array(); #(top, right, bottom, left)
@@ -108,8 +110,6 @@ class img extends Frontend {
             $md5string = $_REQUEST["text"];
             foreach ($result as $key => $value) {
                 if ($value !== null && isset($this->$key)) {
-
-//                    var_dump($key);
                     $this->$key = $value;
                 }
                 if (isset($this->$key)) {
@@ -201,7 +201,7 @@ class img extends Frontend {
         imageSaveAlpha($this->imgHandle, true);
 
         // weitere Bilder in das Bild reinrechnen
-        if ($this->addImage != '') {
+        if ($this->useExtraImage && $this->addImage != '') {
             $this->insertImage();
         }
 
@@ -211,8 +211,8 @@ class img extends Frontend {
         }
 
         // Bild eingrauen
-        if ($this->grayscale && is_numeric($this->grayscale)) {
-            $this->calcGrayscale();
+        if ($this->grayscaleActive || intval($this->visibility) < 100) {
+            $this->calcVisibility();
         }
 
         // Bild ausgeben
@@ -254,6 +254,7 @@ class img extends Frontend {
             $file_new = $this->cacheDir . substr($file, strrpos($file, '/') + 1, (strrpos($file, '.') - strrpos($file, '/') - 1)) . '.' . $this->imgType;
 
             if (!file_exists($file_new)) {
+                if (class_exists('Imagick')) {
                 $img = new Imagick();
                 $img->readImage($file);
 
@@ -281,6 +282,9 @@ class img extends Frontend {
 
                 $img->writeImage($file_new);
                 $img->clear();
+                } else {
+                    exit;
+            }
             }
             $this->getImageData($file_new);
         } else {
@@ -382,10 +386,10 @@ class img extends Frontend {
     /**
      * Graustufen in das Bild mit reinrechnen.
      */
-    public function calcGrayscale() {
+    public function calcVisibility()
+    {
         for ($i = 0; $i < $this->sizeX; $i++) {
             for ($j = 0; $j < $this->sizeY; $j++) {
-
                 // get the rgb value for current pixel
                 $rgb = ImageColorAt($this->imgHandle, $i, $j);
 
@@ -396,16 +400,21 @@ class img extends Frontend {
 
                 // get the Value from the RGB value
                 // $g = round(($rr + $gg + $bb) / 3);
-
+                if ($this->grayscaleActive) {
                 $g = round($rr * 0.299, 0) + round($gg * 0.587, 0) + round($bb * 0.114, 0);
-
-                $g = round((255 - $g) * ($this->grayscale / 100) + $g);
-
+                    $g = round((255 - $g) * ((100 - $this->visibility) / 100) + $g);
                 // grayscale values have r=g=b=g
                 $val = imagecolorallocate($this->imgHandle, $g, $g, $g);
-
+                } else {
+                    $r = round((255 - $rr) * ((100 - $this->visibility) / 100) + $rr);
+                    $g = round((255 - $gg) * ((100 - $this->visibility) / 100) + $gg);
+                    $b = round((255 - $bb) * ((100 - $this->visibility) / 100) + $bb);
+                    // grayscale values have r=g=b=g
+                    $val = imagecolorallocate($this->imgHandle, $r, $g, $b);
+                }
                 // set the gray value
                 imagesetpixel($this->imgHandle, $i, $j, $val);
+
             }
         }
     }
@@ -448,6 +457,7 @@ class img extends Frontend {
 
         if (!$this->textBoxUse) {
             $this->textFactor = 1;
+        } else {
         }
 
         switch ($this->textCase) {
@@ -508,7 +518,11 @@ class img extends Frontend {
 
         if ($this->textBoxUse) {
             // Der eigentliche Text um $factor vergrößert weiß auf Schwarz für Alphaberechnung
+
             $imgText = imagecreatetruecolor($mapWidth, $mapHeight);
+
+            // set textcolor to black for correct transparency calculation
+            $this->fontColor = '000000';
 
             // Das Ausgabebild welches weiterverarbeitet werden soll
             $imgTextOut = imagecreatetruecolor($mapWidthDst, $mapHeightDst);
@@ -542,6 +556,7 @@ class img extends Frontend {
                     $g = ($c >> 8) & 0xFF;
                     $b = $c & 0xFF;
 
+                    // TODO: Transparenz berechnung erfolgt über den Grünanteil damit kann es Probleme geben wenn die Sschrift einen Grünanteil hat
                     $c2 = imagecolorat($imgTextSized, $x, $y);
                     $alpha = floor((($c2 >> 8) & 0xFF) / 2);
                     imagesetpixel($imgTextOut, $x, $y, imagecolorallocatealpha($imgTextOut, $r, $g, $b, $alpha)); //$alpha));
@@ -664,11 +679,13 @@ class img extends Frontend {
         $imageArray = unserialize($this->addImage);
         if (is_array($imageArray)) {
             foreach ($imageArray as $image) {
-                $file = TL_ROOT . $image['addImageFile'];
+                $img = ((substr($image['addImageFile'],0,1) == '/') ? $image['addImageFile'] : '/'.$image['addImageFile']);
+                $img = ((substr($img,-1,1) == '/') ? substr($img,0,-1) : $img);
+                $file = TL_ROOT . $img;
                 if ($this->ratioName) {
                     $file = substr($file, 0, strrpos($file, '.')) . $this->ratioName . substr($file, strrpos($file, '.'));
                 }
-                if (file_exists($file)) {
+                if (file_exists($file) && is_file($file)) {
                     $img = getimagesize($file);
 
                     if ($img[2] == 1) {

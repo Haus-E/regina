@@ -70,13 +70,13 @@ $GLOBALS['TL_DCA']['tl_regina'] = array
     'palettes' => array
     (
         '__selector__' => array('textUseActive', 'textBoxUse', 'useExtraImage'),
-        'default' => '{imageData},title,alias,width,height,resize,scaleImg,quality,imgType,position,grayscale,transcolor,constraints,slice,croping;{textData:hide},textUseActive,textBoxUse;{extraImage:hide},useExtraImage',
+        'default' => '{imageData},title,alias,width,height,resize,scaleImg,quality,imgType,position,grayscaleActive,visibility,transcolor,constraints,slice,croping;{textData:hide},textUseActive,textBoxUse;{extraImage:hide},useExtraImage',
     ),
 
     // Subpalettes
     'subpalettes' => array
     (
-        'textUseActive' => 'fontSize,fontNormal,fontBold,fontColor,textBoxOffset,textAlign,textCase',
+        'textUseActive' => 'fontNormal,fontBold,fontSize,fontColor,textBoxOffset,textAlign,textCase',
         'textBoxUse' => 'textBoxBGColor,textBoxHeight,textPadding,textTransparency,textFactor',
         'useExtraImage' => 'addImage',
     ),
@@ -136,7 +136,14 @@ $GLOBALS['TL_DCA']['tl_regina'] = array
             'label' => &$GLOBALS['TL_LANG']['tl_regina']['position'],
             'inputType' => 'checkbox',
             'exclude' => true,
-            'eval' => array('maxlength' => 255, 'tl_class' => 'w50 m12')
+            'eval' => array('tl_class' => 'w50 m12')
+        ),
+        'grayscaleActive' => array
+        (
+            'label' => &$GLOBALS['TL_LANG']['tl_regina']['grayscaleActive'],
+            'inputType' => 'checkbox',
+            'exclude' => true,
+            'eval' => array('tl_class' => 'w50 clr')
         ),
         'quality' => array
         (
@@ -154,11 +161,12 @@ $GLOBALS['TL_DCA']['tl_regina'] = array
             'exclude' => true,
             'eval' => array('maxlength' => 255, 'tl_class' => 'w50')
         ),
-        'grayscale' => array
+        'visibility' => array
         (
-            'label' => &$GLOBALS['TL_LANG']['tl_regina']['grayscale'],
+            'label' => &$GLOBALS['TL_LANG']['tl_regina']['visibility'],
             'inputType' => 'text',
             'exclude' => true,
+            'default' => 100,
             'eval' => array('maxlength' => 6, 'tl_class' => 'w50')
         ),
         'transcolor' => array
@@ -200,7 +208,7 @@ $GLOBALS['TL_DCA']['tl_regina'] = array
         (
             'label' => &$GLOBALS['TL_LANG']['tl_regina']['textUseActive'],
             'inputType' => 'checkbox',
-            'eval' => array('submitOnChange' => true, 'tl_class' => 'w50 m12 clr')
+            'eval' => array('submitOnChange' => true, 'tl_class' => 'clr')
         ),
         'fontSize' => array
         (
@@ -299,7 +307,7 @@ $GLOBALS['TL_DCA']['tl_regina'] = array
         'useExtraImage' => array(
             'label' => &$GLOBALS['TL_LANG']['tl_regina']['useExtraImage'],
             'inputType' => 'checkbox',
-            'eval' => array('submitOnChange' => true, 'tl_class' => 'w50')
+            'eval' => array('submitOnChange' => true, 'tl_class' => 'clr')
         ),
         'addImage' => array
         (
