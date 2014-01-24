@@ -25,6 +25,7 @@ ClassLoader::addClasses(array
 (
     // Classes
     'PurgeImageCache' => '/system/modules/regina/PurgeImageCache.php',
+    'reginaClass' => '/system/modules/regina/reginaClass.php',
     //Modules
 
     // Models
@@ -40,4 +41,11 @@ TemplateLoader::addFiles(array
 (
     'be_purge_image' => 'system/modules/regina/templates',
     'explaination' => 'system/modules/regina/templates',
+
+    'ce_accordion' => 'system/modules/regina/templates',
+    'ce_hyperlink_image' => 'system/modules/regina/templates',
+    'ce_image' => 'system/modules/regina/templates',
+    'ce_text' => 'system/modules/regina/templates',
+    'gallery_default' => 'system/modules/regina/templates',
+    'mod_random_image' => 'system/modules/regina/templates',
 ));
