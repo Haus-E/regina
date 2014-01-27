@@ -150,6 +150,7 @@ $GLOBALS['TL_DCA']['tl_regina'] = array
             'label' => &$GLOBALS['TL_LANG']['tl_regina']['quality'],
             'inputType' => 'text',
             'exclude' => true,
+            'save_callback' => array(array('tl_regina', 'percent')),
             'eval' => array('maxlength' => 255, 'tl_class' => 'w50')
         ),
         'imgType' => array
@@ -167,6 +168,7 @@ $GLOBALS['TL_DCA']['tl_regina'] = array
             'inputType' => 'text',
             'exclude' => true,
             'default' => 100,
+            'save_callback' => array(array('tl_regina', 'percent')),
             'eval' => array('maxlength' => 6, 'tl_class' => 'w50')
         ),
         'transcolor' => array
@@ -295,6 +297,7 @@ $GLOBALS['TL_DCA']['tl_regina'] = array
             'label' => &$GLOBALS['TL_LANG']['tl_regina']['textTransparency'],
             'inputType' => 'text',
             'exclude' => true,
+            'save_callback' => array(array('tl_regina', 'percent')),
             'eval' => array('maxlength' => 255, 'tl_class' => 'w50')
         ),
         'textFactor' => array
@@ -358,6 +361,12 @@ class tl_regina extends Backend
             $varValue .= '-' . $dc->id;
         }
 
+        return $varValue;
+    }
+
+    public function percent($varValue) {
+        if ($varValue > 100) $varValue = 100;
+        if ($varValue < 0) $varValue = 0;
         return $varValue;
     }
 }

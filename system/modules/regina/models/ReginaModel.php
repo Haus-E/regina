@@ -7,6 +7,5 @@
  */
 
 class ReginaModel extends \Model {
-
     protected static $strTable = 'tl_regina';
 }
