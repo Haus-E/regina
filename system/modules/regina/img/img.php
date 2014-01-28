@@ -1,4 +1,12 @@
 <?php
+/**
+ * Contao Open Source CMS
+ *
+ * @Copyright (c) 2014 Haus E
+ * @package Regina
+ * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
+ */
+
 define('TL_MODE', 'FE');
 require('../../../initialize.php');
 

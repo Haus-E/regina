@@ -1,15 +1,11 @@
 <?php
-
 /**
  * Contao Open Source CMS
  *
- * Copyright (c) 2005-2013 Leo Feyer
- *
+ * @Copyright (c) 2014 Haus E
  * @package Regina
- * @link    https://contao.org
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
-
 
 /**
  * This is the tinyMCE (rich text editor) configuration file. Please visit

@@ -1,5 +1,11 @@
 <?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
-
+/**
+ * Contao Open Source CMS
+ *
+ * @Copyright (c) 2014 Haus E
+ * @package Regina
+ * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
+ */
 class PurgeImageCache extends Backend implements executable
 {
     /**

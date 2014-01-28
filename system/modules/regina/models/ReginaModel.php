@@ -1,9 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Daniel Koch
- * Date: 19.12.13
- * Time: 16:30
+ * Contao Open Source CMS
+ *
+ * @Copyright (c) 2014 Haus E
+ * @package Regina
+ * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
 class ReginaModel extends \Model {

@@ -1,5 +1,11 @@
 jQuery(document).ready(function () {
-
+    /**
+     * Contao Open Source CMS
+     *
+     * @Copyright (c) 2014 Haus E
+     * @package Regina
+     * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
+     */
     var pixelRatio = !!window.devicePixelRatio ? window.devicePixelRatio : 1;
 
     var setImagePosition = function (img) {
