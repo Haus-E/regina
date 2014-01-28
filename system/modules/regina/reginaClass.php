@@ -17,7 +17,6 @@ class reginaClass extends Frontend
             foreach ($matches[1] as $key_img => $val) {
                 $replace_string = '';
                 if (preg_match("/ (.*?)=\"(.*?)\"/", $val) > 0) {
-                    $lazyImg = false;
                     preg_match_all("/(.*?)=\"(.*?)\"/", $val, $attrArr);
                     $attrArray = array();
                     foreach ($attrArr[0] as $key => $value) {
@@ -31,33 +30,34 @@ class reginaClass extends Frontend
                                     $attrArray['data-type'] = 'default ';
                                 }
                             }
-                                $attrArray[$attr] = 'system/modules/regina/html/img/dummy.gif';
-                                $attrArray['data-source'] = $attrValue;
+                            $attrArray[$attr] = 'system/modules/regina/html/img/dummy.gif';
+                            $attrArray['data-source'] = $attrValue;
                         } else {
-                            if ($attr == 'class' && strpos($attrValue, 'lazyimg')) {
-                                $lazyImg = true;
-                            }
                             if ($attr == 'data-type') {
-                                $res = $this->Database->prepare("select position from tl_regina where alias = ?")->execute(trim($attrValue));
-                                $result = $res->fetchAssoc();
-                                if ($result['position'] == 1) {
-                                    $attrArray['class'] .= 'lazyImgPosition ';
-                                }
                                 $attrArray[$attr] = $attrValue;
                             } else {
-                            $attrArray[$attr] .= $attrValue . ' ';
+                                $attrArray[$attr] .= $attrValue . ' ';
+                            }
                         }
                     }
+
+                    $res = $this->Database->prepare("select position, lazyLoad from tl_regina where alias = ?")->execute(trim($attrArray['data-type']));
+                    $result = $res->fetchAssoc();
+                    if ($result['position'] == 1) {
+                        $attrArray['class'] .= 'lazyImgPosition ';
                     }
-                    if (!$lazyImg && strpos(strtolower(trim($attrArray['src'])), 'http') === false || $GLOBALS['TL_CONFIG']['noOldIERegina'] && (($this->Environment->agent->browser == 'ie') && ($this->Environment->agent->version < 9))) {
+
+                    if ($result['lazyLoad'] != 1 && strpos(strtolower(trim($attrArray['src'])), 'http') === false || $GLOBALS['TL_CONFIG']['noOldIERegina'] && (($this->Environment->agent->browser == 'ie') && ($this->Environment->agent->version < 9))) {
                         $attrArray['src'] = $attrArray['data-source'];
+                    } else {
+                        $attrArray['class'] .= 'lazyimg ';
                     }
 
                     $replace_string = '<img ';
                     foreach ($attrArray as $attr => $attrValue) {
                         if (!in_array($attr, $attrFilter) || trim($attrArray['data-type']) === 'default') {
                             if (is_array($attrValue)) {
-                                $attrValue = $attrValue[0].trim($attrArray['data-type']).$attrValue[1];
+                                $attrValue = $attrValue[0] . trim($attrArray['data-type']) . $attrValue[1];
                             }
                             $replace_string .= trim($attr) . '="' . trim($attrValue) . '" ';
                         }

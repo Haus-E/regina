@@ -10,6 +10,7 @@ CREATE TABLE `tl_regina` (
   `scaleImg` char(1) NOT NULL default '',
   `quality` int(10) unsigned NOT NULL default '95',
   `imgType` varchar(25) NOT NULL default 'jpeg',
+  `lazyLoad` char(1) NOT NULL default '',
   `position` char(1) NOT NULL default '',
   `grayscaleActive` char(1) NOT NULL default '',
   `visibility` int(10) unsigned NOT NULL default '100',

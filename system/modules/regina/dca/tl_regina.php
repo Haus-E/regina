@@ -78,7 +78,7 @@ $GLOBALS['TL_DCA']['tl_regina'] = array
     'palettes' => array
     (
         '__selector__' => array('textUseActive', 'textBoxUse', 'useExtraImage'),
-        'default' => '{imageData},title,alias,width,height,resize,scaleImg,quality,imgType,position,grayscaleActive,visibility,transcolor,constraints,slice,croping;{textData:hide},textUseActive,textBoxUse;{extraImage:hide},useExtraImage',
+        'default' => '{imageData},title,alias,width,height,resize,scaleImg,quality,imgType,lazyLoad,position,grayscaleActive,visibility,transcolor,constraints,slice,croping;{textData:hide},textUseActive,textBoxUse;{extraImage:hide},useExtraImage',
     ),
 
     // Subpalettes
@@ -138,6 +138,14 @@ $GLOBALS['TL_DCA']['tl_regina'] = array
             'inputType' => 'checkbox',
             'exclude' => true,
             'eval' => array('maxlength' => 255, 'tl_class' => 'w50 m12')
+        ),
+        'lazyLoad' => array
+        (
+            'label' => &$GLOBALS['TL_LANG']['tl_regina']['lazyLoad'],
+            'inputType' => 'checkbox',
+            'exclude' => true,
+            'default' => 1,
+            'eval' => array('tl_class' => 'w50 m12')
         ),
         'position' => array
         (

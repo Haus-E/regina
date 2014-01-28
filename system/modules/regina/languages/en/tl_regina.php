@@ -18,6 +18,7 @@ $GLOBALS['TL_LANG']['tl_regina']['height'] = array('Height', 'Height of destinat
 $GLOBALS['TL_LANG']['tl_regina']['resize'] = array('Zoom image (Upscale)', 'Scale up image, if both width and height are lower than destination values.');
 $GLOBALS['TL_LANG']['tl_regina']['scaleImg'] = array('Automatic Downscale', 'All images must be kept in high quality. Regina scales it down by the given pixel ratio within the boundary of width and height.');
 $GLOBALS['TL_LANG']['tl_regina']['quality'] = array('Quality in percent', 'Quality of compressions for JPEG Files.');
+$GLOBALS['TL_LANG']['tl_regina']['lazyLoad'] = array('Activate Lazy Load', 'The Images starts to load after the webpage is ready. (JS function)');
 $GLOBALS['TL_LANG']['tl_regina']['position'] = array('Center position', 'Positions the image horizontally and vertically centered in the parent DOM element. (JS function)');
 $GLOBALS['TL_LANG']['tl_regina']['visibility'] = array('Visibility', '100% visible -> 0% invisible.');
 $GLOBALS['TL_LANG']['tl_regina']['grayscaleActive'] = array('Activate grayscale', 'Images are displayed in grayscale.');

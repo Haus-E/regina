@@ -12,10 +12,10 @@
                             <?php if ($col->href): ?>
                                 <a href="<?php echo $col->href; ?>"<?php echo $col->attributes; ?>
                                    title="<?php echo $col->alt; ?>">
-                                    <img class="lazyimg" data-type="<?php echo $this->imageSizeType; ?>" src="/<?php echo $GLOBALS['TL_CONFIG']['prefixRegina']; ?>/<?php echo $this->imageSizeType; ?>/<?php echo $col->src; ?>" alt="<?php echo $col->alt; ?>">
+                                    <img data-type="<?php echo $this->imageSizeType; ?>" src="/<?php echo $GLOBALS['TL_CONFIG']['prefixRegina']; ?>/<?php echo $this->imageSizeType; ?>/<?php echo $col->src; ?>" alt="<?php echo $col->alt; ?>">
                                 </a>
                             <?php else: ?>
-                                <img class="lazyimg" data-type="<?php echo $this->imageSizeType; ?>" src="/<?php echo $GLOBALS['TL_CONFIG']['prefixRegina']; ?>/<?php echo $this->imageSizeType; ?>/<?php echo $col->src; ?>" alt="<?php echo $col->alt; ?>">
+                                <img data-type="<?php echo $this->imageSizeType; ?>" src="/<?php echo $GLOBALS['TL_CONFIG']['prefixRegina']; ?>/<?php echo $this->imageSizeType; ?>/<?php echo $col->src; ?>" alt="<?php echo $col->alt; ?>">
                             <?php endif; ?>
                             <?php if ($col->caption): ?>
                                 <figcaption class="caption"
