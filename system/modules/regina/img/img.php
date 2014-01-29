@@ -10,7 +10,8 @@
 define('TL_MODE', 'FE');
 require('../../../initialize.php');
 
-class img extends Frontend {
+class img extends Frontend
+{
 
     private $width = 500;
     private $height = 500;
@@ -65,7 +66,8 @@ class img extends Frontend {
     /**
      * Lädt die Defaultewerte und Initialisiert die Datenbankanbildung
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->import('Database');
         $this->cacheDir = TL_ROOT . '/' . $GLOBALS['TL_CONFIG']['cacheDirRegina'] . '/';
         if (!is_dir($this->cacheDir)) {
@@ -83,7 +85,8 @@ class img extends Frontend {
     /**
      * Berechnet die Bilddatei und liefert sie Zurück
      */
-    public function run() {
+    public function run()
+    {
         $file = TL_ROOT . '/' . $_REQUEST['file'];
         $type = $_REQUEST["type"];
 
@@ -112,7 +115,7 @@ class img extends Frontend {
          * Und wenn vom Standardwert abweichend für weitere Verarbeitung speichern.
          */
         $res = $this->Database->prepare("select * from tl_regina where alias = ?")
-                              ->execute($type);
+            ->execute($type);
         $result = $res->fetchAssoc();
         if (is_array($result)) {
             $md5string = $_REQUEST["text"];
@@ -154,7 +157,7 @@ class img extends Frontend {
          * ggf. Fehlerausgabe an- und abschalten
          * TODO: wieder abstellen
          */
-        if (isset($_REQUEST["e"]) || 1) {
+        if (isset($_REQUEST["e"])) {
             error_reporting(E_ALL);
         } else {
             error_reporting(0);
@@ -246,7 +249,8 @@ class img extends Frontend {
      *
      * @param string $file Datei
      */
-    public function getImageData($file) {
+    public function getImageData($file)
+    {
         $this->imgData = getimagesize($file);
 
         if ($this->imgData[2] == 1) {
@@ -263,36 +267,37 @@ class img extends Frontend {
 
             if (!file_exists($file_new)) {
                 if (class_exists('Imagick')) {
-                $img = new Imagick();
-                $img->readImage($file);
+                    $img = new Imagick();
+                    $img->readImage($file);
 
-                // Farbraumumwandlung falls nötig
-                if ($img->getImageColorspace() === Imagick::COLORSPACE_CMYK) {
-                    $profiles = $img->getImageProfiles('*', false);
-                    $has_icc_profile = (array_search('icc', $profiles) !== false);
-                    if ($has_icc_profile === false) {
-                        $icc_cmyk = file_get_contents('config/USWebUncoated.icc');
-                        $img->profileImage('icc', $icc_cmyk);
-                        unset($icc_cmyk);
+                    // Farbraumumwandlung falls nötig
+                    if ($img->getImageColorspace() === Imagick::COLORSPACE_CMYK) {
+                        $profiles = $img->getImageProfiles('*', false);
+                        $has_icc_profile = (array_search('icc', $profiles) !== false);
+                        if ($has_icc_profile === false) {
+                            $icc_cmyk = file_get_contents('config/USWebUncoated.icc');
+                            $img->profileImage('icc', $icc_cmyk);
+                            unset($icc_cmyk);
+                        }
+                        $icc_rgb = file_get_contents('config/ColorMatchRGB.icc');
+                        $img->profileImage('icc', $icc_rgb);
+                        unset($icc_rgb);
                     }
-                    $icc_rgb = file_get_contents('config/ColorMatchRGB.icc');
-                    $img->profileImage('icc', $icc_rgb);
-                    unset($icc_rgb);
-                }
 
-                $img->stripImage();
+                    $img->stripImage();
 
-                if ($this->imgData[2] == 5) {
-                    $img->setIteratorIndex(0);
-                }
+                    if ($this->imgData[2] == 5) {
+                        $img->setIteratorIndex(0);
+                    }
 
-                $img->setImageFormat($this->imgType);
+                    $img->setImageFormat($this->imgType);
 
-                $img->writeImage($file_new);
-                $img->clear();
+                    $img->writeImage($file_new);
+                    $img->clear();
                 } else {
+                    $this->log('Imagick Class not available', __CLASS__ . ' - ' . __FUNCTION__, TL_ERROR);
                     exit;
-            }
+                }
             }
             $this->getImageData($file_new);
         } else {
@@ -312,7 +317,8 @@ class img extends Frontend {
      * Skalierung und beschneidung des Bildes.
      * Aktuell ist nur eine zentrierte Ausgabe umgesetzt.
      */
-    public function calcCroping() {
+    public function calcCroping()
+    {
         if ($this->croping == 'center_center') {
             if (($this->imgData[1] / $this->height) > ($this->imgData[0] / $this->width)) { // Höher als Breit
 
@@ -355,7 +361,8 @@ class img extends Frontend {
     /**
      * Ermittlung wie das Bild eingepasst werden soll.
      */
-    public function calcConstraints() {
+    public function calcConstraints()
+    {
         if ($this->constraints == "both" && ($this->resize || ($this->imgData[0] > $this->width || $this->imgData[1] > $this->height))) {
             $this->sizeX = $this->width;
             $this->sizeY = $this->imgData[1] * $this->sizeX / $this->imgData[0];
@@ -381,7 +388,8 @@ class img extends Frontend {
     /**
      * Bild beschneiden damit es passt.
      */
-    public function calcSlice() {
+    public function calcSlice()
+    {
         if ($this->slice == "height") {
             $this->sizeY = $this->height;
             $this->sizeYSrc = $this->sizeXSrc * $this->height / $this->width;
@@ -409,10 +417,10 @@ class img extends Frontend {
                 // get the Value from the RGB value
                 // $g = round(($rr + $gg + $bb) / 3);
                 if ($this->grayscaleActive) {
-                $g = round($rr * 0.299, 0) + round($gg * 0.587, 0) + round($bb * 0.114, 0);
+                    $g = round($rr * 0.299, 0) + round($gg * 0.587, 0) + round($bb * 0.114, 0);
                     $g = round((255 - $g) * ((100 - $this->visibility) / 100) + $g);
-                // grayscale values have r=g=b=g
-                $val = imagecolorallocate($this->imgHandle, $g, $g, $g);
+                    // grayscale values have r=g=b=g
+                    $val = imagecolorallocate($this->imgHandle, $g, $g, $g);
                 } else {
                     $r = round((255 - $rr) * ((100 - $this->visibility) / 100) + $rr);
                     $g = round((255 - $gg) * ((100 - $this->visibility) / 100) + $gg);
@@ -431,7 +439,8 @@ class img extends Frontend {
      * Ausgabe des Headers für das Bild.
      * Damit der Browser das Bild korrekt anzeigen kann und das Caching der Bilder im Browser richtig funktioniert.
      */
-    public function printImageHeader() {
+    public function printImageHeader()
+    {
         Header("Content-type: image/" . $this->imgType);
         // Diese Header sind notwendig, um die Bilder im Browser-Cache halten zu koennen.
         Header("Last-Modified: " . gmdate("D, d M Y H:i:s", mktime(0, 0, 0, 1, 1, 2010)) . " GMT"); // Date in the past
@@ -444,12 +453,13 @@ class img extends Frontend {
      * Optional kann die Alpha-Transparenz mit übergeben werden.
      *
      * @param resource $img  Bildhandle
-     * @param string   $code Hexadezimal Farbcode
-     * @param int      $alpha
+     * @param string $code Hexadezimal Farbcode
+     * @param int $alpha
      *
      * @return int
      */
-    public function createColor($img, $code, $alpha = 0) {
+    public function createColor($img, $code, $alpha = 0)
+    {
         return imagecolorallocatealpha($img, hexdec(substr($code, 0, 2)), hexdec(substr($code, 2, 2)), hexdec(substr($code, 4, 2)), $alpha);
     }
 
@@ -457,7 +467,8 @@ class img extends Frontend {
      * Beliebigen Text in das Bild reinrechnen.
      * Es gibt zwei "Haupt"-Optionen mit und ohne Textbox in den der Text eingetragen wird.
      */
-    public function createText() {
+    public function createText()
+    {
         $rawtext = $_REQUEST["text"];
 
         $this->fontNormal = TL_ROOT . '/' . $this->fontNormal;
@@ -615,7 +626,8 @@ class img extends Frontend {
      *
      * @return array
      */
-    public function imagettfbox($size, $angle, $font, $text) {
+    public function imagettfbox($size, $angle, $font, $text)
+    {
         $box = imagettfbbox($size, $angle, $font, $text);
         $min_x = min(array($box[0], $box[2], $box[4], $box[6]));
         $max_x = max(array($box[0], $box[2], $box[4], $box[6]));
@@ -623,11 +635,11 @@ class img extends Frontend {
         $max_y = max(array($box[1], $box[3], $box[5], $box[7]));
 
         return array(
-            'left'   => ($min_x >= -1) ? -abs($min_x + 1) : abs($min_x + 2),
-            'top'    => abs($min_y) - 1,
-            'width'  => $max_x - $min_x,
+            'left' => ($min_x >= -1) ? -abs($min_x + 1) : abs($min_x + 2),
+            'top' => abs($min_y) - 1,
+            'width' => $max_x - $min_x,
             'height' => $max_y - $min_y - 1,
-            'box'    => $box
+            'box' => $box
         );
     }
 
@@ -638,7 +650,8 @@ class img extends Frontend {
      *
      * @return string
      */
-    public function fullUpper($str) {
+    public function fullUpper($str)
+    {
         // convert to entities
         $subject = htmlentities($str, ENT_QUOTES);
         $pattern = '/&([a-z])(uml|acute|circ';
@@ -664,7 +677,8 @@ class img extends Frontend {
      *
      * @return string
      */
-    public function fullLower($str) {
+    public function fullLower($str)
+    {
         // convert to entities
         $subject = htmlentities($str, ENT_QUOTES);
         $pattern = '/&([A-Z])(uml|acute|circ';
@@ -683,12 +697,13 @@ class img extends Frontend {
     /**
      * Hier werden zusätzliche Bildelemenet (etwa Wasserzeichen) in das eigentliche Bild reingerechnet.
      */
-    public function insertImage() {
+    public function insertImage()
+    {
         $imageArray = unserialize($this->addImage);
         if (is_array($imageArray)) {
             foreach ($imageArray as $image) {
-                $img = ((substr($image['addImageFile'],0,1) == '/') ? $image['addImageFile'] : '/'.$image['addImageFile']);
-                $img = ((substr($img,-1,1) == '/') ? substr($img,0,-1) : $img);
+                $img = ((substr($image['addImageFile'], 0, 1) == '/') ? $image['addImageFile'] : '/' . $image['addImageFile']);
+                $img = ((substr($img, -1, 1) == '/') ? substr($img, 0, -1) : $img);
                 $file = TL_ROOT . $img;
                 if ($this->ratioName) {
                     $file = substr($file, 0, strrpos($file, '.')) . $this->ratioName . substr($file, strrpos($file, '.'));
