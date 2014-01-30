@@ -71,8 +71,13 @@ class img extends Frontend
         $this->import('Database');
         $this->cacheDir = TL_ROOT . '/' . $GLOBALS['TL_CONFIG']['cacheDirRegina'] . '/';
         if (!is_dir($this->cacheDir)) {
-            mkdir($this->cacheDir);
-            copy(TL_ROOT . '/system/modules/regina/html/imgcache/index.html', $this->cacheDir . '/index.html');
+            $dir = mkdir($this->cacheDir);
+            if (!$dir) {
+                $this->log('Could not access or create the cachedir.', __CLASS__ . ' - ' . __FUNCTION__, TL_ERROR);
+                exit;
+            } else {
+                copy(TL_ROOT . '/system/modules/regina/html/imgcache/index.html', $this->cacheDir . '/index.html');
+            }
         }
         $this->cacheUse = $GLOBALS['TL_CONFIG']['useCacheRegina'];
 
@@ -252,6 +257,10 @@ class img extends Frontend
     public function getImageData($file)
     {
         $this->imgData = getimagesize($file);
+        if (!$this->imgData) {
+            $this->log('The requested Image can not be found. ('.$file.')', __CLASS__ . ' - ' . __FUNCTION__, TL_ERROR);
+            exit;
+        } else {
 
         if ($this->imgData[2] == 1) {
             $this->imgHandleSrc = imagecreatefromgif($file);
@@ -311,6 +320,7 @@ class img extends Frontend
         if ($this->imgData[0] <= $this->minWidth && $this->imgData[1] <= $this->minHeight) {
             $this->imgType = 'png';
         }
+    }
     }
 
     /**
