@@ -154,8 +154,10 @@ class regina_options extends Backend
 
     public function cacheDir($var)
     {
-        mkdir(TL_ROOT . '/' . $var . '/');
-        copy(TL_ROOT . '/system/modules/regina/html/imgcache/index.html', TL_ROOT . '/' . $var . '/index.html');
+        if (!is_dir(TL_ROOT . '/' . $var)) {
+            mkdir(TL_ROOT . '/' . $var . '/');
+            copy(TL_ROOT . '/system/modules/regina/html/imgcache/index.html', TL_ROOT . '/' . $var . '/index.html');
+        }
         return $var;
     }
 }

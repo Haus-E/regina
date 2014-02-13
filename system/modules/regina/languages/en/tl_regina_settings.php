@@ -15,7 +15,6 @@ $GLOBALS['TL_LANG']['tl_regina_settings']['regina'] = array(
     'noOldIERegina' => array('disable lazy load for older IEs', 'Deactive lazy load for Internet Explorer versions <= 8.'),
     'prefixRegina' => array('Trigger for RewriteRule', 'Set a unique trigger for RewriteRule z.B. <i>image</i>'),
     'useCacheRegina' => array('Activate image cache', 'Cache images on server side.'),
-    'cacheDirRegina' => array('image cache directory', 'Geben Sie den Ordner an in den die berechneten Bilder gecached werden sollen. (Es wird versucht den Ordner anzulegen)'),
     'cacheDirRegina' => array('image cache directory', 'Set a folder for all calculatet images. Regina tries to create the folder.'),
 
     'rewriteRuleRegina' => array(
@@ -47,7 +46,3 @@ $GLOBALS['TL_LANG']['tl_regina_settings']['regina'] = array(
             . "</ul>"
     )
 );
- ?>
- 
- 
- 

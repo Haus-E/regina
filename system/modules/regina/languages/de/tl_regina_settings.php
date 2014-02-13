@@ -45,7 +45,3 @@ $GLOBALS['TL_LANG']['tl_regina_settings']['regina'] = array(
         . "</ul>"
     )
 );
- ?>
- 
- 
- 
