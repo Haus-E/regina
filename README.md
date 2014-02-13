@@ -40,3 +40,7 @@ Configuration
 Troubleshooting
 ---------------
 visit https://github.com/Haus-E/regina/issues
+
+Forum
+-----
+visit https://community.contao.org/de/showthread.php?47487-Regina-Bildoptimierung-und-Lazyload-f%FCr-mobile-HD-und-Desktop-Displays
