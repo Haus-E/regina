@@ -2,3 +2,6 @@
     position: relative;
     display: none;
 }
+.ie7 .lazyimg, .ie8 .lazyimg {
+    display: block;
+}
